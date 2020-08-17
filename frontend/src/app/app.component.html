@@ -1,0 +1,50 @@
+<div class="container" style="margin-top: 70px;">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2">
+      <div>
+        <form [formGroup]="myForm" (ngSubmit)="searchAndReplaceData(myForm.valid)">
+          <div class="row">
+            <div class="col-4">
+              <label for="folder_path">Folder Path</label>
+              <input type="text" name="folder_path" class="form-control" id="folder_path" formControlName="folder_path">
+            </div>
+            <div class="col-4">
+              <label for="search_text">Search Text</label>
+              <input type="text" name="search_text" class="form-control" id="search_text" formControlName="search_text">
+            </div>
+            <div class="col-4">
+              <label for="replacement_text">Replacement Text</label>
+              <input type="text" name="replacement_text" class="form-control" id="replacement_text"
+                formControlName="replacement_text">
+            </div>
+          </div>
+          <button class="btn btn-primary mt-5  float-right" [disabled]="isLoading">Search Files</button>
+          <button type="button" class="btn btn-danger mt-5 mr-2 float-right" (click)="resetForm()">Reset</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loader" *ngIf="isLoading"></div>
+
+<div class="container" style="margin-top: 70px;" *ngIf="files.length">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>File Name</th>
+        <th>File Name (Old)</th>
+        <th>Search Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of files; let i = index">
+
+        <td>{{ i + 1 }}</td>
+        <td> {{ file.new_key }}</td>
+        <td> {{ file.old_key }}</td>
+        <td> {{ file.search_position }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
